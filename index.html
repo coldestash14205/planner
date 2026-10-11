@@ -497,13 +497,8 @@ h2 {
     measurementId: "G-ZJHK6G0SB2"
   };
 
-  // ============================================================
-  // 🔥 SHARED BOARD ID
-  // Everyone using the same board ID sees the same tasks.
-  // ============================================================
   const BOARD_ID = "family-planner";
 
-  // ---------- Firebase init ----------
   let db, auth, boardRef;
   try {
     firebase.initializeApp(firebaseConfig);
@@ -513,17 +508,14 @@ h2 {
     console.error("Firebase init failed:", err);
   }
 
-  // ---------- State ----------
   const HOURS = [7,8,9,10,11,12,13,14,15,16,17,18,19];
   let checklistTasks = [];
   let calendarSlots = {};
   let statusMap = {};
   let nextTaskId = 1;
-
   let isRemoteUpdate = false;
   let writeTimer = null;
 
-  // ---------- DOM ----------
   const checklistContainer = document.getElementById('checklistItems');
   const calendarGrid        = document.getElementById('calendarGrid');
   const todoItems           = document.getElementById('todoItems');
@@ -570,8 +562,8 @@ h2 {
       });
     }
 
-    statusMap   = data.statusMap   || {};
-    nextTaskId  = data.nextTaskId  || 1;
+    statusMap  = data.statusMap  || {};
+    nextTaskId = data.nextTaskId || 1;
   }
 
   function scheduleWrite() {
@@ -705,8 +697,8 @@ h2 {
     if (tasks.length === 0) {
       const empty = document.createElement('div');
       empty.className = 'status-empty';
-      empty.textContent = status === 'todo'      ? 'No tasks'
-                       : status === 'progress'   ? 'Nothing in progress'
+      empty.textContent = status === 'todo'    ? 'No tasks'
+                       : status === 'progress' ? 'Nothing in progress'
                        : 'No completed tasks';
       container.appendChild(empty);
       return;
